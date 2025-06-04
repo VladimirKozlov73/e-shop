@@ -12,7 +12,7 @@ public class ProductBasket {
         counter = 0;
     }
 
-    public void addProduct(Product product) {
+    public void add(Product product) {
         if (counter < 5) {
             basket[counter++] = product;
         } else {

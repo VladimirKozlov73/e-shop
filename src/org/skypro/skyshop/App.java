@@ -18,21 +18,21 @@ public class App {
         ProductBasket basket2 = new ProductBasket();
         ProductBasket basket3 = new ProductBasket();
 
-        basket.addProduct(bread);
-        basket.addProduct(butter);
-        basket.addProduct(milk);
-        basket.addProduct(meat);
-        basket.addProduct(cheese);
+        basket.add(bread);
+        basket.add(butter);
+        basket.add(milk);
+        basket.add(meat);
+        basket.add(cheese);
 
-        basket2.addProduct(bread);
-        basket2.addProduct(milk);
-        basket2.addProduct(meat);
+        basket2.add(bread);
+        basket2.add(milk);
+        basket2.add(meat);
 
-        basket3.addProduct(cheese);
-        basket3.addProduct(oil);
+        basket3.add(cheese);
+        basket3.add(oil);
 
         System.out.println("Добавление продукта в заполненую корзину");
-        basket.addProduct(pepper);
+        basket.add(pepper);
         System.out.println();
 
         System.out.println("Печать содержимого корзины с несколькими товарами");
