@@ -11,9 +11,19 @@ public class DiscountedProduct extends Product{
         this.discount = discount;
     }
 
+    @Override
     public int getPrice() {
         int price = 0;
         price = (int) Math.round (basePrice * (1 - discount / 100.0));
         return price;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    @Override
+    public String toString() {
+        return name + getPrice();
     }
 }
