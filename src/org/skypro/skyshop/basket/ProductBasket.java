@@ -13,7 +13,7 @@ public class ProductBasket {
     }
 
     public void add(Product product) {
-        if (counter < 5) {
+        if (counter < basket.length) {
             basket[counter++] = product;
         } else {
             System.out.println("Невозможно добавить продукт.");
