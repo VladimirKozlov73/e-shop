@@ -6,15 +6,20 @@ public class ProductBasket {
 
     private final Product[] basket;
     private int counter;
+    private int countSpecial;
 
     public ProductBasket() {
         basket = new Product[5];
         counter = 0;
+        countSpecial = 0;
     }
 
     public void add(Product product) {
         if (counter < basket.length) {
             basket[counter++] = product;
+            if (product.isSpecial()) {
+                countSpecial++;
+            }
         } else {
             System.out.println("Невозможно добавить продукт.");
         }
@@ -35,9 +40,10 @@ public class ProductBasket {
             basketIsEmpty = false;
         }
         if (basketIsEmpty) {
-            System.out.println("В корзине пусто");
+            System.out.println("В корзине пусто.");
         }
         System.out.println("Итого: " + totalCostOfTheBasket());
+        System.out.println("Специальных товаров: " + countSpecial);
     }
 
     public boolean checkProduct(String name) {
@@ -54,5 +60,6 @@ public class ProductBasket {
             basket[i] = null;
         }
         counter = 0;
+        countSpecial = 0;
     }
 }
