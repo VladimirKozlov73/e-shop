@@ -4,6 +4,10 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.article.Article;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
@@ -15,6 +19,34 @@ public class App {
         DiscountedProduct meat = new DiscountedProduct("Мясо", 450, 10);
         FixPriceProduct pepper = new FixPriceProduct("Перец");
         SimpleProduct oil = new SimpleProduct("Масло растительное", 124);
+
+        Article artCheese = new Article("Сыр Liebendorf", "Пищевая ценность на 100 г. : белки -25.0, жиры " +
+                "- 25.0, углеводы - 0.0, 330.0 ккал.");
+        Article artBread = new Article("Батон нарезной", "Пищевая ценность на 100 г. : белки -7.5, жиры - " +
+                "2.9, углеводы - 51.4, 265.0 ккал.");
+        Article artMilk = new Article("Молоко ЭкоНива", "Пищевая ценность на 100 г. : белки -7.5, жиры - "+
+                "2.9, углеводы - 51.4, 265.0 ккал.");
+        Article artButter = new Article("Масло сливочное 82.5%", "Пищевая ценность на 100 г. : белки -0.6," +
+                " жиры - 82.5, углеводы - 0.8, 748.0 ккал.");
+        Article artMeat = new Article("Окорок свиной", "Пищевая ценность на 100 г. : белки -18.0, жиры - " +
+                "34.0, углеводы - 0.0, 330.0 ккал.");
+        Article artPepper = new Article("Перец черный молотый", "Пищевая ценность на 100 г. : белки -0.0, " +
+                "жиры - 0.0, углеводы - 0.0, 0.0 ккал.");
+
+        SearchEngine sources = new SearchEngine(50);
+        sources.addSearch(bread);
+        sources.addSearch(milk);
+        sources.addSearch(butter);
+        sources.addSearch(cheese);
+        sources.addSearch(meat);
+        sources.addSearch(pepper);
+        sources.addSearch(oil);
+        sources.addSearch(artBread);
+        sources.addSearch(artButter);
+        sources.addSearch(artCheese);
+        sources.addSearch(artMilk);
+        sources.addSearch(artMeat);
+        sources.addSearch(artPepper);
 
         ProductBasket basket = new ProductBasket();
         ProductBasket basket2 = new ProductBasket();
@@ -67,6 +99,22 @@ public class App {
 
         System.out.println("Поиск товара по имени в пустой корзине");
         System.out.println(basket.checkProduct("шоколад"));
+        System.out.println();
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите запрос: ");
+        String desiredLine = scanner.nextLine();
+
+        Searchable[] searchResult = sources.search(desiredLine);
+
+        for (Searchable searchable : searchResult) {
+            if (searchResult[0] == null) {
+                System.out.println("По данному запросу " + "\"" + desiredLine + "\"" + " ничего не найдено.");
+                break;
+            }
+            if (searchable != null) {
+                System.out.println(searchable.getStringRepresentation());
+            }
+        }
     }
 }
