@@ -22,7 +22,7 @@ public class SearchEngine {
         int found = 0;
         String lowerTerm = term.toLowerCase();
 
-        for (int i = 0; i < counter && found < 5; i++) {
+        for (int i = 0; i < counter && found < results.length; i++) {
             if (sources[i] != null) {
                 String searchTerm = sources[i].getSearchTerm().toLowerCase();
                 if (searchTerm.contains(lowerTerm)) {
