@@ -1,6 +1,7 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.exception.BestResultNotFound;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
@@ -10,7 +11,7 @@ import org.skypro.skyshop.search.Searchable;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BestResultNotFound {
 
         FixPriceProduct bread = new FixPriceProduct("Хлеб");
         SimpleProduct milk = new SimpleProduct("Молоко", 114);
@@ -116,5 +117,40 @@ public class App {
                 System.out.println(searchable.getStringRepresentation());
             }
         }
+
+        try {
+            FixPriceProduct blackBread = new FixPriceProduct("");
+        } catch (Exception e) {
+            System.out.println("Ошибка при создании продукта: " + e.getMessage());
+        }
+        try {
+            SimpleProduct greenOnions = new SimpleProduct("Зелёный лук", -75);
+        } catch (Exception e) {
+            System.out.println("Ошибка ввода цены продукта: " + e.getMessage());
+        }
+        try {
+            DiscountedProduct salt = new DiscountedProduct("Соль", 50, -15);
+        } catch (Exception e) {
+            System.out.println("Ошибка ввода скидки на продукт: " + e.getMessage());
+        }
+        try {
+            Article artSalt = new Article(null, "Пищевая ценность на 100 г. : белки -0.0, " +
+                    "жиры - 0.0, углеводы - 0.0, 0.0 ккал.");
+        } catch (Exception e) {
+            System.out.println("Ошибка в имени статьи:" + e.getMessage());
+        }
+        try {
+            Article artKetchup = new Article("Кетчуп", "     ");
+        } catch (Exception e) {
+            System.out.println("Ошибка в тексте статьи: " + e.getMessage());
+        }
+
+        try {
+            Searchable bestFind = sources.findBestMatch(desiredLine);
+            System.out.println("Лучшее совпадение для '" + desiredLine + "': " + bestFind);
+        } catch (BestResultNotFound e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 }
