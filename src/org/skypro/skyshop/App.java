@@ -120,28 +120,28 @@ public class App {
 
         try {
             FixPriceProduct blackBread = new FixPriceProduct("");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Ошибка при создании продукта: " + e.getMessage());
         }
         try {
             SimpleProduct greenOnions = new SimpleProduct("Зелёный лук", -75);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Ошибка ввода цены продукта: " + e.getMessage());
         }
         try {
             DiscountedProduct salt = new DiscountedProduct("Соль", 50, -15);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Ошибка ввода скидки на продукт: " + e.getMessage());
         }
         try {
             Article artSalt = new Article(null, "Пищевая ценность на 100 г. : белки -0.0, " +
                     "жиры - 0.0, углеводы - 0.0, 0.0 ккал.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Ошибка в имени статьи:" + e.getMessage());
         }
         try {
             Article artKetchup = new Article("Кетчуп", "     ");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Ошибка в тексте статьи: " + e.getMessage());
         }
 
