@@ -1,33 +1,33 @@
 package org.skypro.skyshop.search;
 import org.skypro.skyshop.exception.BestResultNotFound;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchEngine {
 
-    private final Searchable[] sources;
-    private int counter = 0;
+    private final List<Searchable> sources;
 
-    public SearchEngine(int size) {
-        sources = new Searchable[size];
+    public SearchEngine() {
+        sources = new ArrayList<>();
     }
 
     public void addSearch(Searchable source) {
-        if (counter < sources.length) {
-            sources[counter++] = source;
-        } else {
-            System.out.println("Массив заполнен, невозможно добавить элемент");
-        }
+        sources.add(source);
     }
 
-    public Searchable[] search(String term) {
-        Searchable[] results = new Searchable[5];
-        int found = 0;
+    public List<Searchable> search(String term) {
+        List<Searchable> results = new ArrayList<>();
         String lowerTerm = term.toLowerCase();
 
-        for (int i = 0; i < counter && found < results.length; i++) {
-            if (sources[i] != null) {
-                String searchTerm = sources[i].getSearchTerm().toLowerCase();
+        for (Searchable source : sources) {
+            if (source != null) {
+                String searchTerm = source.getSearchTerm().toLowerCase();
                 if (searchTerm.contains(lowerTerm)) {
-                    results[found++] = sources[i];
+                    results.add(source);
+                    if (results.size() >= 5) {
+                        break;
+                    }
                 }
             }
         }
