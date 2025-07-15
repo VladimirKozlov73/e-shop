@@ -25,9 +25,6 @@ public class SearchEngine {
                 String searchTerm = source.getSearchTerm().toLowerCase();
                 if (searchTerm.contains(lowerTerm)) {
                     results.add(source);
-                    if (results.size() >= 5) {
-                        break;
-                    }
                 }
             }
         }
