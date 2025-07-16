@@ -4,10 +4,13 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.exception.BestResultNotFound;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.product.article.Article;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -34,7 +37,7 @@ public class App {
         Article artPepper = new Article("Перец черный молотый", "Пищевая ценность на 100 г. : белки -0.0, " +
                 "жиры - 0.0, углеводы - 0.0, 0.0 ккал.");
 
-        SearchEngine sources = new SearchEngine(50);
+        SearchEngine sources = new SearchEngine();
         sources.addSearch(bread);
         sources.addSearch(milk);
         sources.addSearch(butter);
@@ -106,10 +109,10 @@ public class App {
         System.out.print("Введите запрос: ");
         String desiredLine = scanner.nextLine();
 
-        Searchable[] searchResult = sources.search(desiredLine);
+        List<Searchable> searchResult = sources.search(desiredLine);
 
         for (Searchable searchable : searchResult) {
-            if (searchResult[0] == null) {
+            if (searchResult.get(0) == null) {
                 System.out.println("По данному запросу " + "\"" + desiredLine + "\"" + " ничего не найдено.");
                 break;
             }
@@ -151,6 +154,15 @@ public class App {
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
         }
-    }
 
+        System.out.println();
+        System.out.println("Список удаленных продуктов: " + basket2.removeProductsByName("молоко"));
+        basket2.printBasket();
+        System.out.println();
+        List<Product> removedProducts = basket3.removeProductsByName("какао");
+        if (removedProducts.isEmpty()){
+            System.out.println("Список пуст");
+        }
+        basket3.printBasket();
+    }
 }
