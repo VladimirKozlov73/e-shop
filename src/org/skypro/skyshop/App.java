@@ -164,5 +164,16 @@ public class App {
             System.out.println("Список пуст");
         }
         basket3.printBasket();
+
+        System.out.println();
+        ProductBasket singleProductBasket = new ProductBasket();
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.printBasket();
     }
 }
