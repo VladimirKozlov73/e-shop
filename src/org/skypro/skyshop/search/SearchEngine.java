@@ -3,6 +3,8 @@ import org.skypro.skyshop.exception.BestResultNotFound;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
 
@@ -16,15 +18,15 @@ public class SearchEngine {
         sources.add(source);
     }
 
-    public List<Searchable> search(String term) {
-        List<Searchable> results = new ArrayList<>();
+    public Map<String, Searchable> search(String term) {
+        Map<String, Searchable> results = new TreeMap<>();
         String lowerTerm = term.toLowerCase();
 
         for (Searchable source : sources) {
             if (source != null) {
                 String searchTerm = source.getSearchTerm().toLowerCase();
                 if (searchTerm.contains(lowerTerm)) {
-                    results.add(source);
+                    results.put(source.getSearchTerm(), source);
                 }
             }
         }
