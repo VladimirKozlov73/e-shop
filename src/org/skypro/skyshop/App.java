@@ -11,6 +11,7 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class App {
@@ -109,17 +110,17 @@ public class App {
         System.out.print("Введите запрос: ");
         String desiredLine = scanner.nextLine();
 
-        List<Searchable> searchResult = sources.search(desiredLine);
 
-        for (Searchable searchable : searchResult) {
-            if (searchResult.get(0) == null) {
-                System.out.println("По данному запросу " + "\"" + desiredLine + "\"" + " ничего не найдено.");
-                break;
-            }
-            if (searchable != null) {
-                System.out.println(searchable.getStringRepresentation());
+        Map<String, Searchable> results = sources.search(desiredLine);
+
+        if (results.isEmpty()) {
+            System.out.println("По данному запросу " + "\"" + desiredLine + "\"" + " ничего не найдено.");
+        } else {
+            for (Map.Entry<String, Searchable> entry : results.entrySet()) {
+                System.out.println("Имя: " + entry.getKey() + ", Объект: " + entry.getValue());
             }
         }
+        System.out.println();
 
         try {
             FixPriceProduct blackBread = new FixPriceProduct("");
@@ -164,5 +165,16 @@ public class App {
             System.out.println("Список пуст");
         }
         basket3.printBasket();
+
+        System.out.println();
+        ProductBasket singleProductBasket = new ProductBasket();
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.add(milk);
+        singleProductBasket.printBasket();
     }
 }
