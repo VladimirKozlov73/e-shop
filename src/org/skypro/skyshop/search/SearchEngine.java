@@ -1,17 +1,14 @@
 package org.skypro.skyshop.search;
 import org.skypro.skyshop.exception.BestResultNotFound;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
 
-    private final List<Searchable> sources;
+    private final Set<Searchable> sources;
 
     public SearchEngine() {
-        sources = new ArrayList<>();
+        sources = new HashSet<>();
     }
 
     public void addSearch(Searchable source) {
@@ -34,7 +31,7 @@ public class SearchEngine {
     }
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
-        if (search == null || search.isBlank()){
+        if (search == null || search.isBlank()) {
             throw new BestResultNotFound("Поисковый запрос не может быть пустым.");
         }
         Searchable result = null;
