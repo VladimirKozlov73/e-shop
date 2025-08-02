@@ -13,6 +13,7 @@ import org.skypro.skyshop.search.Searchable;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class App {
     public static void main(String[] args) throws BestResultNotFound {
@@ -111,13 +112,13 @@ public class App {
         String desiredLine = scanner.nextLine();
 
 
-        Map<String, Searchable> results = sources.search(desiredLine);
+        Set<Searchable> results = sources.search(desiredLine);
 
         if (results.isEmpty()) {
             System.out.println("По данному запросу " + "\"" + desiredLine + "\"" + " ничего не найдено.");
         } else {
-            for (Map.Entry<String, Searchable> entry : results.entrySet()) {
-                System.out.println("Имя: " + entry.getKey() + ", Объект: " + entry.getValue());
+            for (Searchable result : results) {
+                System.out.println("Имя: " + result.getSearchTerm() + ", Объект: " + result);
             }
         }
         System.out.println();
