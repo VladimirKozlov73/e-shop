@@ -15,15 +15,15 @@ public class SearchEngine {
         sources.add(source);
     }
 
-    public Map<String, Searchable> search(String term) {
-        Map<String, Searchable> results = new TreeMap<>();
+    public Set<Searchable> search(String term) {
+        TreeSet<Searchable> results = new TreeSet<>(new SearchTermComparator());
         String lowerTerm = term.toLowerCase();
 
         for (Searchable source : sources) {
             if (source != null) {
                 String searchTerm = source.getSearchTerm().toLowerCase();
                 if (searchTerm.contains(lowerTerm)) {
-                    results.put(source.getSearchTerm(), source);
+                    results.add(source);
                 }
             }
         }
@@ -40,7 +40,7 @@ public class SearchEngine {
 
         for (Searchable unit : sources) {
             if (unit == null) {
-                break;
+                continue;
             }
             String str = unit.getSearchTerm().toLowerCase();
             int count = 0;
