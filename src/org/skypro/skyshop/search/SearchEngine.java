@@ -1,32 +1,29 @@
 package org.skypro.skyshop.search;
 import org.skypro.skyshop.exception.BestResultNotFound;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
 
-    private final List<Searchable> sources;
+    private final Set<Searchable> sources;
 
     public SearchEngine() {
-        sources = new ArrayList<>();
+        sources = new HashSet<>();
     }
 
     public void addSearch(Searchable source) {
         sources.add(source);
     }
 
-    public Map<String, Searchable> search(String term) {
-        Map<String, Searchable> results = new TreeMap<>();
+    public Set<Searchable> search(String term) {
+        TreeSet<Searchable> results = new TreeSet<>(new SearchTermComparator());
         String lowerTerm = term.toLowerCase();
 
         for (Searchable source : sources) {
             if (source != null) {
                 String searchTerm = source.getSearchTerm().toLowerCase();
                 if (searchTerm.contains(lowerTerm)) {
-                    results.put(source.getSearchTerm(), source);
+                    results.add(source);
                 }
             }
         }
@@ -34,7 +31,7 @@ public class SearchEngine {
     }
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
-        if (search == null || search.isBlank()){
+        if (search == null || search.isBlank()) {
             throw new BestResultNotFound("Поисковый запрос не может быть пустым.");
         }
         Searchable result = null;
@@ -43,7 +40,7 @@ public class SearchEngine {
 
         for (Searchable unit : sources) {
             if (unit == null) {
-                break;
+                continue;
             }
             String str = unit.getSearchTerm().toLowerCase();
             int count = 0;
